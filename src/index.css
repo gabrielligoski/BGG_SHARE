@@ -1,0 +1,110 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0f0e0b;
+  --bg2: #181610;
+  --bg3: #211f18;
+  --surface: #2a2720;
+  --surface2: #333028;
+  --border: #3d3a2e;
+  --border2: #4d4a3a;
+  --gold: #c9a84c;
+  --gold2: #e8c96a;
+  --gold-dim: #c9a84c33;
+  --text: #f0ead8;
+  --text2: #b8af96;
+  --text3: #7a7260;
+  --red: #c0392b;
+  --green: #27ae60;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow: 0 4px 24px #00000060;
+  --shadow-lg: 0 8px 48px #00000090;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --transition: 0.2s ease;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+#root { position: relative; z-index: 1; }
+
+a { color: var(--gold); text-decoration: none; }
+a:hover { color: var(--gold2); }
+
+button { cursor: pointer; font-family: var(--font-body); }
+
+input, textarea, select {
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  padding: 10px 14px;
+  width: 100%;
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--gold);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text3);
+}
+
+select option { background: var(--bg3); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-in { animation: fadeIn 0.4s ease forwards; }
+
+.spinner {
+  width: 20px; height: 20px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
